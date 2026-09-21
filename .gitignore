@@ -1,0 +1,19 @@
+# JetBrains / CLion
+.idea/
+
+# CMake
+cmake-build-*/
+build/
+
+# Compiled files
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+*.pdb
+
+# OS files
+.DS_Store
+Thumbs.db
