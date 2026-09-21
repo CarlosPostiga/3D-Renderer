@@ -4,6 +4,9 @@
 # CMake
 cmake-build-*/
 build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
 
 # Compiled files
 *.exe
@@ -14,6 +17,9 @@ build/
 *.obj
 *.pdb
 
-# OS files
-.DS_Store
+# Windows
 Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
