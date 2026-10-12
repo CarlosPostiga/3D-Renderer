@@ -5,6 +5,24 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
+// --------------------------------------------------
+// Framebuffer resize callback
+// --------------------------------------------------
+
+void framebuffer_size_callback(
+    GLFWwindow*,
+    int width,
+    int height
+)
+{
+    glViewport(
+        0,
+        0,
+        width,
+        height
+    );
+}
+
 int main()
 {
     std::cout << "Starting 3D Renderer...\n";
@@ -45,7 +63,6 @@ int main()
         nullptr
     );
 
-    // Check if window creation failed
     if (window == nullptr)
     {
         std::cerr << "Failed to create GLFW window.\n";
@@ -86,6 +103,32 @@ int main()
         << "."
         << GLAD_VERSION_MINOR(version)
         << "\n";
+
+    // --------------------------------------------------
+    // Configure viewport
+    // --------------------------------------------------
+
+    int framebuffer_width;
+    int framebuffer_height;
+
+    glfwGetFramebufferSize(
+        window,
+        &framebuffer_width,
+        &framebuffer_height
+    );
+
+    glViewport(
+        0,
+        0,
+        framebuffer_width,
+        framebuffer_height
+    );
+
+    // Automatically update viewport when window changes size
+    glfwSetFramebufferSizeCallback(
+        window,
+        framebuffer_size_callback
+    );
 
     // --------------------------------------------------
     // Main application loop
