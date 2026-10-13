@@ -54,6 +54,23 @@ add_executable(
         src/main.cpp
 )
 
+file(
+        MAKE_DIRECTORY
+        "${CMAKE_CURRENT_BINARY_DIR}/shaders"
+)
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/shaders/vertex.glsl"
+        "${CMAKE_CURRENT_BINARY_DIR}/shaders/vertex.glsl"
+        COPYONLY
+)
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/shaders/fragment.glsl"
+        "${CMAKE_CURRENT_BINARY_DIR}/shaders/fragment.glsl"
+        COPYONLY
+)
+
 target_link_libraries(
         3D_Renderer
         PRIVATE
