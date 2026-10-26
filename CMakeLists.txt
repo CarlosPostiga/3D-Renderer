@@ -53,6 +53,8 @@ add_executable(
         3D_Renderer
         src/main.cpp
         src/renderer/Shader.cpp
+        src/renderer/VertexBuffer.cpp
+        src/renderer/VertexArray.cpp
 )
 
 file(
