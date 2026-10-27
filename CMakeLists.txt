@@ -55,6 +55,10 @@ add_executable(
         src/renderer/Shader.cpp
         src/renderer/VertexBuffer.cpp
         src/renderer/VertexArray.cpp
+        src/renderer/VertexBufferLayout.cpp
+        src/renderer/Renderer.cpp
+        src/core/Application.cpp
+        src/core/Window.cpp
 )
 
 file(
