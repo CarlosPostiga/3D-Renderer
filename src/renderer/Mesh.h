@@ -4,18 +4,19 @@
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 #include "MeshData.h"
+#include "IndexBuffer.h"
 
 
 class Mesh
 {
 public:
     Mesh( const MeshData& data );
-    unsigned int getVertexCount() const;
     const VertexArray& getVertexArray() const;
+    const IndexBuffer& getIndexBuffer() const;
 
 private:
     VertexArray vertexArray;
     VertexBuffer vertexBuffer;
     VertexBufferLayout layout;
-    unsigned int vertexCount;
+    IndexBuffer indexBuffer;
 };

@@ -64,6 +64,7 @@ add_executable(
         src/renderer/VertexBufferLayout.cpp
         src/renderer/Mesh.cpp
         src/renderer/Primitives.cpp
+        src/renderer/IndexBuffer.cpp
 )
 
 file(

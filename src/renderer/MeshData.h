@@ -6,6 +6,5 @@
 struct MeshData
 {
     std::vector<float> vertices;
-
-    unsigned int vertexCount;
+    std::vector<unsigned int> indices;
 };
