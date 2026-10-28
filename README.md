@@ -157,7 +157,6 @@ The goal of this phase was to remove geometry ownership and buffer setup from `A
 - [x] Let `Mesh` own its `VertexBuffer`
 - [x] Let `Mesh` own its `VertexArray`
 - [x] Let `Mesh` configure its `VertexBufferLayout`
-- [x] Store the vertex count in `Mesh`
 - [x] Allow `Renderer` to draw a `Mesh` directly
 - [x] Keep OpenGL resource lifetime automatic
 - [x] Render the same triangle through the new abstraction
@@ -183,27 +182,29 @@ Mesh
 ├── VertexBuffer
 ├── VertexArray
 ├── VertexBufferLayout
-└── vertex count
+└── IndexBuffer
     ↓
 Renderer
 ```
 
 `Application` now only needs to know which mesh it wants to create and when it should be rendered.
 
-## Phase 6 — Vertex Data 🚧
+## Phase 6 — Vertex Data ✅
 
-Current phase.
+The goal of this phase was to extend the vertex format beyond position-only data and introduce indexed rendering.
 
-Learn how richer information can be passed through the graphics pipeline.
-
-- [ ] Add vertex colors
-- [ ] Add multiple vertex attributes
-- [ ] Deepen understanding of stride and offsets
-- [ ] Pass color data from the vertex shader to the fragment shader
-- [ ] Observe shader interpolation across a triangle
-- [ ] Create an Index Buffer / Element Buffer Object (EBO)
-- [ ] Create an `IndexBuffer` abstraction
-- [ ] Render a rectangle using indexed drawing
+- [x] Add vertex colors
+- [x] Add multiple vertex attributes
+- [x] Deepen understanding of stride and offsets
+- [x] Pass color data from the vertex shader to the fragment shader
+- [x] Observe shader interpolation across a triangle
+- [x] Create an Index Buffer / Element Buffer Object (EBO)
+- [x] Create an `IndexBuffer` abstraction
+- [x] Extend `MeshData` with index data
+- [x] Let `Mesh` own its `IndexBuffer`
+- [x] Switch rendering from `glDrawArrays` to `glDrawElements`
+- [x] Render a square using four unique vertices and six indices
+- [x] Remove the obsolete explicit vertex-count field
 
 Target pipeline:
 
@@ -223,7 +224,9 @@ Fragment Shader
 Framebuffer
 ```
 
-## Phase 7 — Transformations
+## Phase 7 — Transformations 🚧
+
+Current phase.
 
 Move from static geometry toward a real 3D renderer.
 
@@ -435,6 +438,9 @@ MeshData
 Primitives
    └── creates predefined geometry data
 
+IndexBuffer
+   └── owns an OpenGL EBO used for indexed drawing
+
 Mesh
    └── owns reusable GPU geometry and its rendering resources
 ```
@@ -494,7 +500,7 @@ For the current phase:
 ```bash
 git switch main
 git pull origin main
-git switch -c feature/vertex-data
+git switch -c feature/transformations
 ```
 
 After completing and testing the feature:
@@ -502,8 +508,8 @@ After completing and testing the feature:
 ```bash
 git status
 git add .
-git commit -m "Add vertex color attributes"
-git push -u origin feature/vertex-data
+git commit -m "Add model transformations"
+git push -u origin feature/transformations
 ```
 
 Then create a Pull Request and merge it into `main`.
@@ -519,25 +525,27 @@ git pull origin main
 
 The next task is:
 
-> Extend the vertex format with color data and learn how multiple vertex attributes are passed through the rendering pipeline.
+> Introduce GLM and begin applying model transformations to rendered geometry.
 
 The immediate implementation sequence will be:
 
 ```text
-Add color values to vertex data
+Add GLM
         ↓
-Add a second layout attribute
+Learn vectors and matrices
         ↓
-Understand stride and attribute offsets
+Create a model matrix
         ↓
-Update the vertex shader
+Apply translation
         ↓
-Pass color to the fragment shader
+Apply rotation
         ↓
-Observe interpolation across the triangle
+Apply scaling
+        ↓
+Send the matrix to the shader using a uniform
 ```
 
-This begins Phase 6 — Vertex Data.
+This begins Phase 7 — Transformations.
 
 ---
 
