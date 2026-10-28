@@ -2,6 +2,7 @@
 
 #include "Shader.h"
 #include "VertexArray.h"
+#include "Mesh.h"
 
 #include <glad/gl.h>
 
@@ -13,9 +14,9 @@ void Renderer::clear( float red, float green, float blue, float alpha ) const
 }
 
 
-void Renderer::draw( const Shader& shader, const VertexArray& vertexArray, unsigned int vertexCount ) const
+void Renderer::draw( const Shader& shader, const Mesh& mesh ) const
 {
     shader.use();
-    vertexArray.bind();
-    glDrawArrays( GL_TRIANGLES, 0, vertexCount );
+    mesh.getVertexArray().bind();
+    glDrawArrays( GL_TRIANGLES, 0, mesh.getVertexCount() );
 }
