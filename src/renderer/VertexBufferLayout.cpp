@@ -10,7 +10,7 @@ VertexBufferLayout::VertexBufferLayout() : stride(0)
 
 void VertexBufferLayout::pushFloat( unsigned int count )
 {
-    elements.push_back( { GL_FLOAT, count, GL_FALSE } );
+	elements.push_back( { GL_FLOAT, count, GL_FALSE } );
     stride += count * sizeof(float);
 }
 

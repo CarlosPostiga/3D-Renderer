@@ -2,11 +2,9 @@
 #include "Window.h"
 
 #include "../renderer/Shader.h"
-#include "../renderer/VertexBuffer.h"
-#include "../renderer/VertexArray.h"
 #include "../renderer/Renderer.h"
-#include "../renderer/VertexBufferLayout.h"
-
+#include "../renderer/Mesh.h"
+#include "../renderer/Primitives.h"
 
 int Application::run()
 {
@@ -25,27 +23,7 @@ int Application::run()
     // Triangle vertex data
     // --------------------------------------------------
     
-    float vertices[] = 
-    {
-        0.0f, 1.0f, 0.0f,       // Top
-       -0.5f, 0.0f, 0.0f,   	// Bottom left
-        0.5f, 0.0f, 0.0f,  	    // Bottom right
-    };
-	
-    // --------------------------------------------------
-    // Create VAO and VBO
-    // --------------------------------------------------
-    
-    VertexArray vertexArray;
-    vertexArray.bind();
-    
-    VertexBuffer vertexBuffer( vertices, sizeof(vertices) );
-    VertexBufferLayout layout;
-    layout.pushFloat(3);
-    vertexArray.addBuffer( vertexBuffer, layout );
-    
-    vertexBuffer.unbind();
-    vertexArray.unbind();
+    Mesh triangle( Primitives::triangle() );
     
     // --------------------------------------------------
     // Create shader program
@@ -69,7 +47,7 @@ int Application::run()
         renderer.clear(0.1f,0.2f,0.3f,1.0f);
         
         // redering of the objects
-        renderer.draw( shader, vertexArray, 3 );
+        renderer.draw( shader, triangle );
         
         // Present the completed frame
         window.swapBuffers();
