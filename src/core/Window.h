@@ -14,7 +14,9 @@ public:
 
     void swapBuffers() const;
     void pollEvents() const;
-
+	
+	float getAspectRatio() const;
+	
 private:
     GLFWwindow* window;
 
