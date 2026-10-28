@@ -80,3 +80,18 @@ void Window::pollEvents() const
 {
     glfwPollEvents();
 }
+
+float Window::getAspectRatio() const
+{
+    int width;
+    int height;
+
+    glfwGetFramebufferSize( window, &width, &height );
+
+    if (height == 0)
+    {
+        return 1.0f;
+    }
+
+    return static_cast<float>(width) / static_cast<float>(height);
+}

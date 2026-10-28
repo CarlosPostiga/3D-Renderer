@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const std::string& vertexPath,const std::string& fragmentPath)
 {
@@ -86,6 +87,13 @@ void Shader::use() const
 {
     glUseProgram(programID);
 }
+
+void Shader::setMat4( const std::string& name, const glm::mat4& matrix ) const
+{
+    int location = glGetUniformLocation( programID, name.c_str() );
+    glUniformMatrix4fv( location, 1, GL_FALSE, glm::value_ptr(matrix) );
+}
+
 
 std::string Shader::readFile(const std::string& path)
 {
