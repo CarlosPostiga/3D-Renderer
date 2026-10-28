@@ -18,5 +18,5 @@ void Renderer::draw( const Shader& shader, const Mesh& mesh ) const
 {
     shader.use();
     mesh.getVertexArray().bind();
-    glDrawArrays( GL_TRIANGLES, 0, mesh.getVertexCount() );
+    glDrawElements( GL_TRIANGLES, mesh.getIndexBuffer().getCount(), GL_UNSIGNED_INT, nullptr );
 }

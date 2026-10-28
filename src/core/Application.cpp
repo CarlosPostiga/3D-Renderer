@@ -23,7 +23,8 @@ int Application::run()
     // Triangle vertex data
     // --------------------------------------------------
     
-    Mesh triangle( Primitives::triangle() );
+    //Mesh triangle( Primitives::triangle() );
+	Mesh square( Primitives::square() );
     
     // --------------------------------------------------
     // Create shader program
@@ -47,7 +48,8 @@ int Application::run()
         renderer.clear(0.1f,0.2f,0.3f,1.0f);
         
         // redering of the objects
-        renderer.draw( shader, triangle );
+        //renderer.draw( shader, triangle );
+        renderer.draw( shader, square );
         
         // Present the completed frame
         window.swapBuffers();

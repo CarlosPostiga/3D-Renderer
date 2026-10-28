@@ -7,4 +7,5 @@ class Primitives
 {
 public:
     static MeshData triangle();
+    static MeshData square();
 };
