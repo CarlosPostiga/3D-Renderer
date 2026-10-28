@@ -146,40 +146,40 @@ Application
 
 `Application` now coordinates the system without directly calling GLFW or raw OpenGL functions.
 
-## Phase 5 — Geometry / Mesh Abstraction ✅
+## Phase 5 — Geometry / Mesh Abstraction 🚧
 
-The goal of this phase was to remove geometry ownership and buffer setup from `Application.cpp` and introduce reusable CPU-side and GPU-side geometry abstractions.
+Current phase.
 
-### Mesh ✅
+The next goal is to remove geometry ownership and buffer setup from `Application.cpp`.
 
-- [x] Create `Mesh.h`
-- [x] Create `Mesh.cpp`
-- [x] Let `Mesh` own its `VertexBuffer`
-- [x] Let `Mesh` own its `VertexArray`
-- [x] Let `Mesh` configure its `VertexBufferLayout`
-- [x] Store the vertex count in `Mesh`
-- [x] Allow `Renderer` to draw a `Mesh` directly
-- [x] Keep OpenGL resource lifetime automatic
-- [x] Render the same triangle through the new abstraction
+Right now the application still knows:
 
-### MeshData and Primitives ✅
+- The triangle's raw vertex values
+- How many vertices the triangle contains
+- That a VAO, VBO, and vertex layout must be created for the geometry
 
-- [x] Create `MeshData`
-- [x] Store CPU-side vertex data in `MeshData`
-- [x] Create `Primitives`
-- [x] Move triangle coordinates out of `Application.cpp`
-- [x] Add `Primitives::triangle()`
-- [x] Construct `Mesh` from `MeshData`
-- [x] Remove raw geometry details from `Application.cpp`
+Those responsibilities should move into a reusable geometry abstraction.
 
-Current geometry flow:
+### Mesh
+
+- [ ] Create `Mesh.h`
+- [ ] Create `Mesh.cpp`
+- [ ] Move triangle vertex data out of `Application.cpp`
+- [ ] Let `Mesh` own its `VertexBuffer`
+- [ ] Let `Mesh` own its `VertexArray`
+- [ ] Let `Mesh` own or configure its `VertexBufferLayout`
+- [ ] Store the vertex count in `Mesh`
+- [ ] Expose the information needed by `Renderer`
+- [ ] Keep OpenGL resource lifetime automatic
+- [ ] Render the same triangle through the new abstraction
+
+Target direction:
 
 ```text
-Primitives
-    ↓
-MeshData
+Application
     ↓
 Mesh
+├── vertex data
 ├── VertexBuffer
 ├── VertexArray
 ├── VertexBufferLayout
@@ -188,11 +188,9 @@ Mesh
 Renderer
 ```
 
-`Application` now only needs to know which mesh it wants to create and when it should be rendered.
+The first version will remain intentionally simple. The goal is to learn ownership and geometry structure before making `Mesh` generic enough for complex models.
 
-## Phase 6 — Vertex Data 🚧
-
-Current phase.
+## Phase 6 — Vertex Data
 
 Learn how richer information can be passed through the graphics pipeline.
 
@@ -381,9 +379,6 @@ The project will gradually evolve toward:
 │       ├── VertexBufferLayout.cpp
 │       ├── Mesh.h
 │       ├── Mesh.cpp
-│       ├── MeshData.h
-│       ├── Primitives.h
-│       ├── Primitives.cpp
 │       ├── IndexBuffer.h
 │       ├── IndexBuffer.cpp
 │       ├── Texture.h
@@ -429,14 +424,8 @@ VertexBufferLayout
 VertexArray
    └── owns a VAO and connects buffers to layouts
 
-MeshData
-   └── stores CPU-side geometry data
-
-Primitives
-   └── creates predefined geometry data
-
 Mesh
-   └── owns reusable GPU geometry and its rendering resources
+   └── next: owns reusable geometry and its rendering resources
 ```
 
 The aim is not merely to move code into different files. Each class should have a clear responsibility and ownership model.
@@ -519,25 +508,38 @@ git pull origin main
 
 The next task is:
 
-> Extend the vertex format with color data and learn how multiple vertex attributes are passed through the rendering pipeline.
+> Create the first `Mesh` abstraction and move triangle geometry ownership out of `Application.cpp`.
+
+The first version should preserve the current output exactly:
+
+```text
+same window
+same shaders
+same triangle
+same color
+```
+
+Only the architecture changes.
 
 The immediate implementation sequence will be:
 
 ```text
-Add color values to vertex data
+Create Mesh.h / Mesh.cpp
         ↓
-Add a second layout attribute
+Give Mesh vertex data
         ↓
-Understand stride and attribute offsets
+Create its VertexBuffer
         ↓
-Update the vertex shader
+Create its VertexArray
         ↓
-Pass color to the fragment shader
+Create/configure its VertexBufferLayout
         ↓
-Observe interpolation across the triangle
+Store vertex count
+        ↓
+Use Mesh from Application
+        ↓
+Render the same triangle
 ```
-
-This begins Phase 6 — Vertex Data.
 
 ---
 

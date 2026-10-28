@@ -51,7 +51,19 @@ glad_add_library(
 
 add_executable(
         3D_Renderer
+
         src/main.cpp
+
+        src/core/Application.cpp
+        src/core/Window.cpp
+
+        src/renderer/Renderer.cpp
+        src/renderer/Shader.cpp
+        src/renderer/VertexBuffer.cpp
+        src/renderer/VertexArray.cpp
+        src/renderer/VertexBufferLayout.cpp
+        src/renderer/Mesh.cpp
+        src/renderer/Primitives.cpp
 )
 
 file(
