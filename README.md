@@ -10,6 +10,7 @@ The goal of this project is to learn how a real-time renderer works internally, 
 - OpenGL 3.3 Core
 - GLFW
 - GLAD
+- GLM
 - CMake
 - Ninja
 - MinGW / GCC
@@ -224,22 +225,25 @@ Fragment Shader
 Framebuffer
 ```
 
-## Phase 7 — Transformations 🚧
+## Phase 7 — Transformations ✅
 
-Current phase.
+The goal of this phase was to move from static clip-space geometry to a proper model-view-projection transformation pipeline.
 
-Move from static geometry toward a real 3D renderer.
-
-- [ ] Add GLM
-- [ ] Learn vectors and matrices
-- [ ] Translation
-- [ ] Rotation
-- [ ] Scaling
-- [ ] Model matrix
-- [ ] View matrix
-- [ ] Projection matrix
-- [ ] Perspective projection
-- [ ] Send matrices to shaders using uniforms
+- [x] Add GLM
+- [x] Learn vectors and matrices
+- [x] Translation
+- [x] Rotation
+- [x] Scaling
+- [x] Build a model matrix
+- [x] Add a view matrix
+- [x] Add a projection matrix
+- [x] Add perspective projection
+- [x] Send matrices to shaders using uniforms
+- [x] Add `Shader::setMat4()`
+- [x] Add framebuffer aspect-ratio access to `Window`
+- [x] Recalculate projection with the current framebuffer aspect ratio
+- [x] Preserve object proportions while resizing the window
+- [x] Verify Z-axis perspective behavior
 
 Target pipeline:
 
@@ -259,7 +263,9 @@ Projection Matrix
 Clip Space
 ```
 
-## Phase 8 — Textures
+## Phase 8 — Textures 🚧
+
+Current phase.
 
 - [ ] Load image files
 - [ ] Create OpenGL textures
@@ -421,7 +427,8 @@ Renderer
    └── issues draw commands
 
 Shader
-   └── owns an OpenGL shader program
+   ├── owns an OpenGL shader program
+   └── sends matrix uniforms to GLSL
 
 VertexBuffer
    └── owns an OpenGL VBO
@@ -500,7 +507,7 @@ For the current phase:
 ```bash
 git switch main
 git pull origin main
-git switch -c feature/transformations
+git switch -c feature/textures
 ```
 
 After completing and testing the feature:
@@ -508,8 +515,8 @@ After completing and testing the feature:
 ```bash
 git status
 git add .
-git commit -m "Add model transformations"
-git push -u origin feature/transformations
+git commit -m "Add texture rendering"
+git push -u origin feature/textures
 ```
 
 Then create a Pull Request and merge it into `main`.
@@ -525,27 +532,29 @@ git pull origin main
 
 The next task is:
 
-> Introduce GLM and begin applying model transformations to rendered geometry.
+> Introduce texture loading and map image data onto rendered geometry.
 
 The immediate implementation sequence will be:
 
 ```text
-Add GLM
+Choose an image-loading library
         ↓
-Learn vectors and matrices
+Load image pixels from disk
         ↓
-Create a model matrix
+Create an OpenGL texture
         ↓
-Apply translation
+Configure texture parameters
         ↓
-Apply rotation
+Add UV coordinates to vertex data
         ↓
-Apply scaling
+Pass UVs through the vertex shader
         ↓
-Send the matrix to the shader using a uniform
+Sample the texture in the fragment shader
+        ↓
+Render the textured square
 ```
 
-This begins Phase 7 — Transformations.
+This begins Phase 8 — Textures.
 
 ---
 
